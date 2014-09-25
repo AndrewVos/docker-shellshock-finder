@@ -39,6 +39,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	vulnerable := 0
+	notVulnerable := 0
+
 	for _, container := range containers {
 		pid := strconv.Itoa(container.State.Pid)
 		cmd := exec.Command(
@@ -57,7 +60,9 @@ func main() {
 		out, err := cmd.CombinedOutput()
 		if strings.Contains(string(out), "VULNERABLE") {
 			fmt.Printf("%v (%v) is vulnerable!\n", container.ID, container.Name)
+			vulnerable += 1
 		} else {
+			notVulnerable += 1
 			fmt.Printf("%v (%v) is NOT vulnerable!\n", container.ID, container.Name)
 			if err != nil {
 				log.Println(string(out))
@@ -65,4 +70,5 @@ func main() {
 			}
 		}
 	}
+	fmt.Printf("Found %v containers that are vulnerable to shellshock, and %v containers that are not\n", vulnerable, notVulnerable)
 }
