@@ -56,7 +56,7 @@ func main() {
 		)
 		out, err := cmd.CombinedOutput()
 		if strings.Contains(string(out), "VULNERABLE") {
-			fmt.Printf("%v is vulnerable!\n", container.ID)
+			fmt.Printf("%v (%v) is vulnerable!\n", container.ID, container.Name)
 		} else {
 			if err != nil {
 				log.Println(string(out))
