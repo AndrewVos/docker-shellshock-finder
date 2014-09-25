@@ -58,6 +58,7 @@ func main() {
 		if strings.Contains(string(out), "VULNERABLE") {
 			fmt.Printf("%v (%v) is vulnerable!\n", container.ID, container.Name)
 		} else {
+			fmt.Printf("%v (%v) is NOT vulnerable!\n", container.ID, container.Name)
 			if err != nil {
 				log.Println(string(out))
 				log.Fatal(err)
